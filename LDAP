@@ -24,9 +24,9 @@ ou: Group" > base.ldif
 setenforce 0
 ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f base.ldif -y /root/ldap_admin_pass
 systemctl restart httpd
-
-#PAGE 2 GENERATE CERTS
-
+####
+###PAGE 2 GENERATE CERTS
+####
 openssl req -new -x509 -nodes -out /etc/openldap/certs/nti310ldapcert.pem -keyout /etc/openldap/certs/nti310ldapkey.pem -days 365 -subj
 "/C=US/ST=WA/L=Seattle/O=SCC/OU=IT/CN=nti310.local"
 chown -R ldap. /etc/openldap/certs/nti*.pem
@@ -45,13 +45,30 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
 
 #creates group & people structure base
+#########
+########
 
 
-
-
-
+####
 #Generates and stores passwd securely
 newsecret=$(slappasswd -g)
 newhash=$(slappasswd -s "$newsecret")
 echo -n "$newsecret" > /root/ldap_admin_pass
 chmod 0600 /root/ldap_admin_pass
+
+####WRONG UNDER???
+
+echo -e "dn: olcDatabase= {2}hdb,cn=config
+changetype: modify
+replace: olcSuffix
+olcSuffix: dc=nti310,dc=local
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+replace: olcRootDN
+olcRootDN: cn=ldapadm,dc=nti310,dc=local
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+replace: olcRootPW
+olcRootPW: $newhash" >> db.ldif
+
+ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif
