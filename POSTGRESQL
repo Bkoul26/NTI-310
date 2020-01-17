@@ -2,7 +2,6 @@
 ##http://34.69.163.4/phpPgAdmin/
 yum -y install python2-pip python3-pip python2-devel python3-devel gcc postgresql-server postgresql-devel postgresql-contrib
 postgresql-setup initdb
-systemctl start postgresql
 systemctl restart postgresql
 systemctl enable  postgresql
 
