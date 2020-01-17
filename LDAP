@@ -53,4 +53,5 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
 #Generates and stores passwd securely
 newsecret=$(slappasswd -g)
 newhash=$(slappasswd -s "$newsecret")
-echo -n
+echo -n "$newsecret" > /root/ldap_admin_pass
+chmod 0600 /root/ldap_admin_pass
