@@ -109,15 +109,18 @@ dc: NTI310
 objectClass: top
 objectClass: domain
 \n
+#engage organzational role class for managment of LDAP
 dn: cn=ldapadm,dc=NTI310,dc=local
 objectClass: organizationalRole
 cn: ldapadm
 description: LDAP Manager
 \n
+#adapt organizational unit people
 dn: ou=People,dc=NTI310,dc=local
 objectClass: organizationalUnit
 ou: People
 \n
+#engage organizational unit group
 dn: ou=Group,dc=NTI310,dc=local
 objectClass: organizationalUnit
 ou: Group” > base.ldif
