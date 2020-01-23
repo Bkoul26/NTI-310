@@ -26,7 +26,7 @@ sed -i ‘s,Require local,#Require local\n   Require all granted,g’ /etc/httpd
 
 unalias cp
 cp /etc/phpldapadmin/config.php /etc/phpldapadmin/config.php.orig	
-# copies original config file
+# copies original CONFIGURATION file
 
 grep ‘config.*blowfish’ /etc/phpldapadmin/config.php.orig
 # grep for blowfish key
@@ -70,7 +70,7 @@ olcRootPW: “$newhash” > db.ldif
 
 ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif
 
-# Auth Restrict
+# Authentication Restriction
 
 echo ’dn: olcDatabase={1}monitor,cn=config
 changetype: modify
@@ -92,7 +92,7 @@ olcTLSCertificateKeyFile: /etc/openldap/certs/NTI310ldapkey.pem” > certs.ldif
 
 ldapmodify -Y EXTERNAL  -H ldapi:/// -f certs.ldif
 
-# Cert Config TEST
+# Cert Configurations' TEST
 slaptest -u
 echo “OPERATIONAL”
 
@@ -102,7 +102,7 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
 
-# Base Structure Creation
+# Dome Structure Creation for Object oriented classes
 
 echo -e “dn: dc=NTI310,dc=local
 dc: NTI310
