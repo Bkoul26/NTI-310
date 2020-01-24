@@ -20,8 +20,8 @@ setsebool -P httpd_can_connect_ldap on
 systemctl enable httpd
 systemctl start httpd
 
-sed -i ‘s,Require local,#Require local\n   Require all granted,g’ /etc/httpd/conf.d/phpldapadmin.conf
-#sed -i 's,Require local,Require all granted,g' /etc/httpd/conf.d/phpldapadmin.conf
+sed -i ‘s,Require local,Require local\n   Require all granted,g’ /etc/httpd/conf.d/phpldapadmin.conf
+
 #CONTINUED...
 
 unalias cp
