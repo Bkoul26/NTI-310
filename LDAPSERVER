@@ -146,3 +146,4 @@ ldapadd -x -W -D "cn=ldapadm,dc=NTI310,dc=local" -f base.ldif -y /root/ldap_admi
 #restart
 systemctl restart httpd
 #end
+#cat /root/ldap_admin_pass
