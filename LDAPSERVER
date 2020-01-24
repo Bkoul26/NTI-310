@@ -109,7 +109,7 @@ ldapmodify -Y EXTERNAL  -H ldapi:/// -f certs.ldif
 
 # Cert Configurations' SLAPTEST
 slaptest -u
-echo “OPERATIONAL”
+echo “WE ARE IN BUSINESS”
 
 #unalias cp
 
@@ -119,7 +119,7 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
 
 # Dome Structure Creation for Object oriented classes
 
-echo -e “dn: dc=NTI310,dc=local
+echo -e "dn: dc=NTI310,dc=local
 dc: NTI310
 objectClass: top
 objectClass: domain
@@ -138,11 +138,11 @@ ou: People
 #engage organizational unit group
 dn: ou=Group,dc=NTI310,dc=local
 objectClass: organizationalUnit
-ou: Group” > base.ldif
+ou: Group" > base.ldif
 
 setenforce 0
 
-ldapadd -x -W -D “cn=ldapadm,dc=NTI310,dc=local” -f base.ldif -y /root/ldap_admin_pass
+ldapadd -x -W -D "cn=ldapadm,dc=NTI310,dc=local" -f base.ldif -y /root/ldap_admin_pass #ADD ENTRY/ this works without errors
 #restart
 systemctl restart httpd
 #end
