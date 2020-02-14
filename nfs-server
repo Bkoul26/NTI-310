@@ -1,8 +1,8 @@
 yum install -y nfs-utils
 mkdir /var/nfsshare
-mkdir/var/nfsshare/devstuff
-mkdir/var/nfsshare/testing
-mrdir/var/nfsshare/home_dirs
+mkdir /var/nfsshare/devstuff
+mkdir /var/nfsshare/testing
+mkdir /var/nfsshare/home_dirs
 chmod -R 777 /var/nfsshare/
 systemctl enable rpcbind
 systemctl enable nfs-server
