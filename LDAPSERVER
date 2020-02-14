@@ -20,7 +20,7 @@ setsebool -P httpd_can_connect_ldap on
 systemctl enable httpd
 systemctl start httpd
 
-sed -i ‘s,Require local,Require local\n   Require all granted,g’ /etc/httpd/conf.d/phpldapadmin.conf
+sed -i 's,Require local,Require local\n   Require all granted,g' /etc/httpd/conf.d/phpldapadmin.conf
 
 #CONTINUED...
 
@@ -91,19 +91,19 @@ ldapmodify -Y EXTERNAL  -H ldapi:/// -f monitor.ldif
 
 # Cert Gen
 
-openssl req -new -x509 -nodes -out /etc/openldap/certs/NTI310ldapcert.pem -keyout /etc/openldap/certs/NTI310ldapkey.pem -days 365 -subj "/C=US/ST=WA/L=Seattle/O=SCC/OU=IT/CN=NTI310.local"
+openssl req -new -x509 -nodes -out /etc/openldap/certs/nti310ldapcert.pem -keyout /etc/openldap/certs/nti310ldapkey.pem -days 365 -subj "/C=US/ST=WA/L=Seattle/O=SCC/OU=IT/CN=NTI310.local"
 
 chown -R ldap. /etc/openldap/certs/NTI*.pem
 
 echo -e "dn: cn=config
 changetype: modify
-replace: olcTLSCertificateKeyFile
-olcTLSCertificateKeyFile: /etc/openldap/certs/NTI310ldapkey.pem
+replace: olcTLSCertificateFile
+olcTLSCertificateFile: /etc/openldap/certs/nti310ldapcert.pem
 \n
 dn: cn=config
-changetype=modify
+changetype: modify
 replace: olcTLSCertificateKeyFile
-olcTLSCertificateKeyFile: /etc/openldap/certs/NTI310ldapcert.pem" > certs.ldif
+olcTLSCertificateKeyFile: /etc/openldap/certs/nti310ldapkey.pem" > certs.ldif
 
 ldapmodify -Y EXTERNAL  -H ldapi:/// -f certs.ldif
 
