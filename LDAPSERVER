@@ -76,7 +76,7 @@ replace: olcRootPW
 olcRootPW: $newhash" > db.ldif
 #moving into db.ldif file, vim into it to make sure
 
-vim db.ldif #make sure the code is there
+# vim db.ldif #make sure the code is there
 
 ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif  
 
