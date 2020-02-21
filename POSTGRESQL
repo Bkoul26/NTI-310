@@ -58,3 +58,10 @@ sed -i "s/$conf\['owned_only'\] = false;/$conf['owned_only'] = true;/g" /etc/php
 cp /etc/phpPgAdmin/config.inc.php-dist /etc/phpPgAdmin/config.inc.php #turns it into a real file
 systemctl restart httpd
 systemctl restart postgresql
+sed -i "s/host    all             all             127.0.0.1\/32            md5/host    all             all             0.0.0.0\/0               md5/g" /var/lib/pgsql/data/pg_hba.conf
+echo "alter user  nti310user createdb:" > /tmp/authfile
+sudo -u postgres /bin/psql -f /tmp/authfile
+echo "ALTER DATABASE nti310 OWNER
+TO nti310user;" > /tmp/changeowner
+sudo -u postgres /bin/psql -f /tmp/changeowner
+systemctl restart httpd
