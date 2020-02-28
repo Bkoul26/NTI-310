@@ -1,0 +1,67 @@
+sudo yum update -y
+yum install -y openvpn wget
+wget -O /tmp/easyrsa https://github.com/OpenVPN/easy-rsa-old/archive/2.3.3.tar.gz
+tar xfz /tmp/easyrsa
+mkdir /etc/openvpn/easy-rsa
+cp -rf easy-rsa-old-2.3.3/easy-rsa/2.0/* /etc/openvpn/easy-rsa
+sudo cp /usr/share/doc/openvpn-2.4.8/sample/sample-config-files/server.conf /etc/openvpn
+
+#vim /etc/openvpn/server.conf
+#uncomment push redirect-gateway def1..
+#push "dhcp-option DNS 8.8.8.8"
+#push "dhcp-option DNS 8.8.4.4"
+#uncomment user nobody, group nobody, topology
+#make remote-cert-eku "TLS Web Client Authentication"
+#comment out >>;tls-auth ta.key 0 # This file is secret
+#add tls-crypt myvpn.tlsauth
+openvpn --genkey --secret /etc/openvpn/myvpn.tlsauth
+mkdir /etc/openvpn/easy-rsa/keys
+yum install bind-utils
+#vim /etc/openvpn/easy-rsa/vars
+#(NSLOOKUP)CN="115.210.212.35.bc.googleusercontent"
+#NAME = "server"
+#OU= "College"
+
+cd /etc/openvpn/easy-rsa
+source ./vars
+./clean-all
+./build-ca
+./build-key-server server
+./build-dh
+cd /etc/openvpn/easy-rsa/keys
+cp dh2048.pem ca.crt server.crt server.key /etc/openvpn
+
+cd /etc/openvpn/easy-rsa
+./build-key client
+
+cp /etc/openvpn/easy-rsa/openssl-1.0.0.cnf /etc/openvpn/easy-rsa/openssl.cnf
+firewall-cmd --get-active-zones
+firewall-cmd --zone=trusted --add-service openvpn
+firewall-cmd --zone=trusted --add-service openvpn --permanent
+firewall-cmd --list-services --zone=trusted
+
+firewall-cmd --add-masquerade
+firewall-cmd --permanent --add-masquerade
+firewall-cmd --query-masquerade
+SHARK=$(ip route get 8.8.8.8 | awk 'NR==1 {print $(NF-2)}')
+firewall-cmd --permanent --direct --passthrough ipv4 -t nat -A POSTROUTING -s 10.8.0.0/24 -o $SHARK -j MASQUERADE
+firewall-cmd --reload
+systemctl start firewalld
+###vim /etc/systemcl.conf
+
+#put in net.ipv4.ip_forward = 1
+systemctl restart network.service
+systemctl -f enable openvpn@server.service
+systemctl start openvpn@server.service
+systemctl status openvpn@server.service
+# /etc/openvpn/easy-rsa/keys/ca.crt
+# /etc/openvpn/easy-rsa/keys/client.crt
+# /etc/openvpn/easy-rsa/keys/client.key
+# /etc/openvpn/myvpn.tlsauth
+
+mkdir /tmp/client
+cp /etc/openvpn/easy-rsa/keys/ca.crt /tmp/client
+cp /etc/openvpn/easy-rsa/keys/client.crt /tmp/client
+cp /etc/openvpn/easy-rsa/keys/cclient.key /tmp/client
+cp /etc/openvpn/easy-rsa/keys/ca/crt /tmp/client
+tar cvf client.tar client/
