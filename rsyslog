@@ -1,0 +1,27 @@
+#using centos7
+sudo yum update && yum install rsyslog 	
+sudo systemctl start rsyslog
+sudo systemctl enable rsyslog
+sudo systemctl status rsyslog
+sudo vim /etc/rsyslog.conf
+#change TCP setting and uncomment $ModLoad imtcp & $InputTCPServerRun 514
+#Open /etc/rsyslog.conf with a text editor, and append the following template before the GLOBAL DIRECTIVES block:
+$template RemoteLogs,"/var/log/%HOSTNAME%/%PROGRAMNAME%.log" *
+*.* ?RemoteLogs
+& ~
+sudo systemctl restart rsyslog
+sudo ss -tulnp | grep "rsyslog"
+sudo semanage -a -t syslogd_port_t -p udp 514
+sudo semanage -a -t syslogd_port_t -p tcp 514 
+#enable firewall
+sudo firewall-cmd --permanent --add-port=514/udp
+sudo firewall-cmd --permanent --add-port=514/tcp
+sudo firewall-cmd --reload
+sudo systemctl status rsyslog
+#add to the end of conf file:
+*. *  @@192.168.100.10:514
+auth. *  @@192.168.100.10:514
+sudo systemctl restart rsyslog
+# check by typing:
+ls -l /var/log/
+sudo ls -l /var/log/ip-172-31-21-58/
