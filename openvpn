@@ -65,3 +65,45 @@ cp /etc/openvpn/easy-rsa/keys/client.crt /tmp/client
 cp /etc/openvpn/easy-rsa/keys/cclient.key /tmp/client
 cp /etc/openvpn/easy-rsa/keys/ca/crt /tmp/client
 tar cvf client.tar client/
+
+#I also tried uploading the certs into Softether VPN and have attached screenshots.
+#Download OpenVPn and follow config for client.opfv
+remote 35.206.123.57 1194 udp
+dev tun
+ifconfig 10.8.0.2 10.8.0.1 
+secret /path/to/static.key
+comp-lzo
+keepalive 10 60
+ping-timer-rem
+persist-tun
+persist-key
+dhcp-option DNS 8.8.8.8
+#config
+#####
+client
+tls-client
+ca C:\users\Boggy\Downloads\client\ca.crt
+cert C:\users\Boggy\Downloads\client\client.crt
+key C:\users\Boggy\Downloads\client\client\client.key
+tls-crypt C:\users\Boggy\Downloads\client\ca.crt/openvpn.tls
+remote-cert-eku "TLS Web Server Authenticaton"
+proto udp
+remote 35.209.116 1194 udp
+dev tun
+topology subnet
+pull
+user nobody
+group nobody
+dhcp-option DNS 8.8.8.8
+#srv.conf file continued
+dev tun
+ifconfig 10.8.0.1 10.8.0.2
+secret static.key
+comp-lzo
+keepalive 10 60
+ping-timer-rem
+persist-tun
+persist-key
+user nobody
+group nobody
+daemon
