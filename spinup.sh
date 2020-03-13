@@ -5,5 +5,5 @@ gcloud compute instances create rsyslog-server2 \
         --tags "http-server","https-server" \
         --machine-type f1-micro \
         --scopes cloud-platform \
-        --metadata-from-file startup-script=/path/to/script.sh=/home/Bkoul26/NTI-310/logserver/logsrv.sh \
+        --metadata-from-file startup-script=/path/to/script.sh=/home/bloshakoul/NTI-310/logserver/logsrv.sh \
         --private-network-ip=10.128.0.5
