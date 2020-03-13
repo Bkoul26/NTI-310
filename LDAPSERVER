@@ -53,7 +53,8 @@ echo "configuring ldap + ldapadmin"
 
 
 # securely generate code with new pwd stores
-newsecret=$(slappasswd -g) #system variable 'newsecret'
+#$newsecret=$(slappasswd -g) #system variable 'newsecret'
+newsecret="P@ssw0rd1"
 echo $newsecret #shows the pwd
 newhash=$(slappasswd -s "$newsecret") #create a new hash of the passwd
 echo $newhash #echo the hash encryption
