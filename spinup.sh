@@ -2,7 +2,7 @@
 gcloud compute instances create rsyslog1 \
         --image-family centos-7 \
         --image-project centos-cloud \
-        --zone us-central1-a \
+        --zone us-west1-a \
         --tags "http-server","https-server" \
         --machine-type f1-micro \
         --scopes cloud-platform \
