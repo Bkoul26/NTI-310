@@ -75,7 +75,7 @@ gcloud compute instances create django \
         
 #ubuntu 
 gcloud compute instances create client ubuntu \
-        --image-family ubuntu-cloud \
+        --image-family ubuntu-1804-lts \
         --image-project ubuntu-cloud \
         --zone us-central1-a \
         --tags "http-server","https-server" \
