@@ -87,7 +87,7 @@ gcloud compute instances create ubuntunfs \
 gcloud compute instances create ubuntuldap \
         --image-family ubuntu-1804-lts \
         --image-project ubuntu-os-cloud \
-        --zone us-central1-c \
+        --zone us-west1-b \
         --tags "http-server","https-server" \
         --machine-type f1-micro \
         --scopes cloud-platform \
