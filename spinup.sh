@@ -16,7 +16,7 @@ gcloud compute instances create ldap-client \
         --tags "http-server","https-server" \
         --machine-type f1-micro \
         --scopes cloud-platform \
-        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/ldap-client.sh \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/ldap_client.sh \
         --private-network-ip=10.128.0.8
 #ldap serv
 gcloud compute instances create ldap-server \
@@ -26,7 +26,7 @@ gcloud compute instances create ldap-server \
         --tags "http-server","https-server" \
         --machine-type f1-micro \
         --scopes cloud-platform \
-        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/ldap-server \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/LDAPSERVER \
         --private-network-ip=10.128.0.9
 #nfs client
 gcloud compute instances create nfs-client \
@@ -75,7 +75,7 @@ gcloud compute instances create django \
         
 #ubuntu 
 gcloud compute instances create client ubuntu \
-        --image-family ubuntu-16.04 LTS \
+        --image-family ubuntu-cloud \
         --image-project ubuntu-cloud \
         --zone us-central1-a \
         --tags "http-server","https-server" \
