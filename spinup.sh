@@ -73,7 +73,7 @@ gcloud compute instances create django \
         --metadata-from-file startup-script=/home/bloshakoul/NTI-310/django \
         --private-network-ip=10.128.0.11
         
-#ubuntu 
+#ubuntunfs
 gcloud compute instances create client_ubuntu \
         --image-family ubuntu-18.04-lts \
         --image-project ubuntu-os-cloud \
@@ -81,5 +81,15 @@ gcloud compute instances create client_ubuntu \
         --tags "http-server","https-server" \
         --machine-type f1-micro \
         --scopes cloud-platform \
-        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/client ubuntu \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/nfs-client \
+        --private-network-ip=10.128.0.12
+#ubuntuldap
+gcloud compute instances create client_ubuntu \
+        --image-family ubuntu-18.04-lts \
+        --image-project ubuntu-os-cloud \
+        --zone us-central1-a \
+        --tags "http-server","https-server" \
+        --machine-type f1-micro \
+        --scopes cloud-platform \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/ldap_client.sh \
         --private-network-ip=10.128.0.12
