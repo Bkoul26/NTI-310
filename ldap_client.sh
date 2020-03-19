@@ -42,3 +42,4 @@ ldap-auth-config        ldap-auth-config/ldapns/ldap-server     string      ldap
 ldap-auth-config        ldap-auth-config/binddn string  cn=proxyuser,dc=example,dc=net" > /tmp/ldap_debconf
 
 while read line; do echo "$line" | debconf-set-selections; done < /tmp/ldap_debconf
+echo "*.info;mail.none;authpriv.none;cron.none   @logsrv" >> /etc/rsyslog.conf && systemctl restart rsyslog.service
