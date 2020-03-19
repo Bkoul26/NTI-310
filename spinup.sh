@@ -92,4 +92,4 @@ gcloud compute instances create ubuntuldap \
         --machine-type f1-micro \
         --scopes cloud-platform \
         --metadata-from-file startup-script=/home/bloshakoul/NTI-310/ldap_client.sh \
-        --private-network-ip=10.128.0.15
+        --private-network-ip=10.128.0.3
