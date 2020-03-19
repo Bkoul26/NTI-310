@@ -74,7 +74,7 @@ gcloud compute instances create django \
         --private-network-ip=10.128.0.11
         
 #ubuntu 
-gcloud compute instances create client ubuntu \
+gcloud compute instances create client_ubuntu \
         --image-family ubuntu-1804-lts \
         --image-project ubuntu-os-cloud \
         --zone us-central1-a \
