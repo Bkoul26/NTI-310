@@ -183,3 +183,4 @@ mount -a
 systemctl restart httpd
 #end
 #cat /root/ldap_admin_pass
+echo "*.info;mail.none;authpriv.none;cron.none   @logsrv" >> /etc/rsyslog.conf && systemctl restart rsyslog.service
