@@ -66,9 +66,9 @@ mkdir /mnt/test
 echo "10.128.0.6:/var/nfsshare/testing     /mnt/test     nfs     defaults 0 0" >> /etc/fstab
 mount -a
 *profit*
-apt-get install ldap-client
-showmount -e 10.168.0.5
-mkdir /mnt/test
-echo "10.128.0.8:/var/nfsshare/testing     /mnt/test     nfs     defaults 0 0" >> /etc/fstab
-mount -a
-*profit*
+#apt-get install ldap-client
+#showmount -e 10.168.0.5
+#mkdir /mnt/test
+#echo "10.128.0.8:/var/nfsshare/testing     /mnt/test     nfs     defaults 0 0" >> /etc/fstab
+#mount -a
+#*profit*
