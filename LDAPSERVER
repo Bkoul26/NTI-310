@@ -31,7 +31,7 @@ gpgcheck=0
 enabled=1" >> /etc/yum.repos.d/local-repo.repo
 yum install -y git
 cd /tmp
-git clone https://github.com/Bkoul26/NTI300
+git clone https://github.com/Bkoul26/NTI-310
 
 yum install -y openldap-servers openldap-clients
 
