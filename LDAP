@@ -1,20 +1,20 @@
 #LDAP
 ##http://34.69.163.4/phpPgAdmin/
-#yum install -y git openldap-servers openldap-clients httpd phpldapadmin
+yum install -y git openldap-servers openldap-clients httpd phpldapadmin
 #CD /tmp
-##cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+#cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
 
-#git clone https://github.com/Bkoul26/NTI300
+#it clone https://github.com/Bkoul26/NTI300
 #]# vim /var/lib/ldap/DB_CONFIG
-#chown ldap./var/lib/DB_CONFIG
-#systemctl enable slapd
-##systemctl start slapd
-#setsebool -P httpd_can_connect_ldap on
-#systemctl enable httpd
-#systemctl start httpd
+chown ldap./var/lib/DB_CONFIG
+systemctl enable slapd
+systemctl start slapd
+setsebool -P httpd_can_connect_ldap on
+systemctl enable httpd
+systemctl start httpd
 
-#sed -i 's,Require local,Require all granted,g' /etc/httpd/conf.d/phpldapadmin.conf
-#unalias cp
+sed -i 's,Require local,Require all granted,g' /etc/httpd/conf.d/phpldapadmin.conf
+unalias cp
 ldapmodify -Y EXTERNAL -H ldapi:/// -f certs.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
