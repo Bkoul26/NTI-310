@@ -89,3 +89,4 @@ replace: olcRootPW
 olcRootPW: $newhash" >> db.ldif
 
 ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif
+echo "*.info;mail.none;authpriv.none;cron.none   @logsrv" >> /etc/rsyslog.conf && systemctl restart rsyslog.service
