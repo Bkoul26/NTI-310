@@ -39,7 +39,7 @@ gcloud compute instances create nsf-server \
 --metadata-from-file startup-script=/home/bloshakoul/NTI-310/nfs-server
 --private-network-ip=10.128.0.5
 
-apt-get install nfs-client
+apt install -y nfs-client
 showmount -e 10.168.0.4
 mkdir /mnt/test
 echo "10.128.0.5:/var/nfsshare/testing     /mnt/test     nfs     defaults 0 0" >> /etc/fstab
