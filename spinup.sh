@@ -26,7 +26,7 @@ gcloud compute instances create ldap-server \
         --tags "http-server","https-server" \
         --machine-type f1-micro \
         --scopes cloud-platform \
-        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/version2 \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/LDAPSERVER \
         --private-network-ip=10.128.0.9
 #nfs client
 gcloud compute instances create nfs-client \
