@@ -63,7 +63,7 @@ grep 'config.*blowfish' /etc/phpldapadmin/config.php.orig
 rightkey=$( grep ‘config.*blowfish’ /etc/phpldapadmin/config.php.orig )
 # use rejex to retrieve the key
 
-cp /tmp/NTI310/CONFIG /etc/phpldapadmin/config.php 
+cp /tmp/NTI-310/CONFIG /etc/phpldapadmin/config.php 
 # copy pre-made conf to config.php
 
 #sed -i “s/\$config->custom->session\[‘blowfish’\] = ‘6ad4614a5189aaf046e2057e7870ae4‘\;incomplete
