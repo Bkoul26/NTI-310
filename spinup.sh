@@ -9,6 +9,17 @@ gcloud compute instances create rsyslog1 \
         --metadata-from-file startup-script=/home/bloshakoul/NTI-310/logserver/logsrv.sh \
         --private-network-ip=10.128.0.5
 #ldap client
+
+sleep 20s
+gcloud compute instances create ldap-server \
+        --image-family centos-7 \
+        --image-project centos-cloud \
+        --zone us-central1-a \
+        --tags "http-server","https-server" \
+        --machine-type f1-micro \
+        --scopes cloud-platform \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/LDAPSERVER \
+        --private-network-ip=10.128.0.9
 sleep 20s
 gcloud compute instances create ldap-client \
         --image-family centos-7 \
@@ -30,18 +41,7 @@ gcloud compute instances create ldap-server \
         --scopes cloud-platform \
         --metadata-from-file startup-script=/home/bloshakoul/NTI-310/LDAPSERVER \
         --private-network-ip=10.128.0.9
-#nfs client
-sleep 20s
-gcloud compute instances create nfs-client \
-        --image-family centos-7 \
-        --image-project centos-cloud \
-        --zone us-central1-a \
-        --tags "http-server","https-server" \
-        --machine-type f1-micro \
-        --scopes cloud-platform \
-        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/nfs-client \
-        --private-network-ip=10.128.0.6
-        
+                
 #nfs server
 sleep 20s
 gcloud compute instances create nfs-server \
@@ -53,7 +53,31 @@ gcloud compute instances create nfs-server \
         --scopes cloud-platform \
         --metadata-from-file startup-script=/home/bloshakoul/NTI-310/nfs-server \
         --private-network-ip=10.128.0.7
+        #postgres
+sleep 20s
+gcloud compute instances create postgres \
+        --image-family centos-7 \
+        --image-project centos-cloud \
+        --zone us-central1-a \
+        --tags "http-server","https-server" \
+        --machine-type f1-micro \
+        --scopes cloud-platform \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/POSTGRESQL \
+        --private-network-ip=10.128.0.10
+    
       
+#nfs client
+sleep 20s
+gcloud compute instances create nfs-client \
+        --image-family centos-7 \
+        --image-project centos-cloud \
+        --zone us-central1-a \
+        --tags "http-server","https-server" \
+        --machine-type f1-micro \
+        --scopes cloud-platform \
+        --metadata-from-file startup-script=/home/bloshakoul/NTI-310/nfs-client \
+        --private-network-ip=10.128.0.6
+
 #postgres
 sleep 20s
 gcloud compute instances create postgres \
