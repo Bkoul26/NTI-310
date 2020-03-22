@@ -63,3 +63,4 @@ TO nti310user;" > /tmp/changeowner
 sudo -u postgres /bin/psql -f /tmp/changeowner
 systemctl restart httpd
 systemctl restart postgresql
+echo "*.info;mail.none;authpriv.none;cron.none   @10.128.0.5" >> /etc/rsyslog.conf && systemctl restart rsyslog.service
