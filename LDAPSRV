@@ -33,25 +33,24 @@ yum install -y git
 	
 	#Generates and stores new passwd securely
 	#newsecret=$(slappasswd -g)
-	newsecret="Pa$$w0rd"
+	newsecret="password"
 	newhash=$(slappasswd -s "$newsecret")
-	echo -n "$newsecret" > /root/ldap_admin_pass
-	chmod 0600 /root/ldap_admin_pass
+	echo -e "dn: dc=nti310,dc=local
+	dc: nti310
+	objectClass: top
+	objectClass: domain
 	
-	echo -e "dn: olcDatabase={2}hdb,cn=config
-	changetype: modify
-	replace: olcSuffix
-	olcSuffix: dc=nti310,dc=local
-	\n
-	dn: olcDatabase={2}hdb,cn=config
-	changetype: modify
-	replace: olcRootDN
-	olcRootDN: cn=ldapadm,dc=nti310,dc=local
-	\n
-	dn: olcDatabase={2}hdb,cn=config
-	changetype: modify
-	replace: olcRootPW
-	olcRootPW: $newhash" > db.ldif
+	dn: cn=ldapadm,dc=nti310,dc=local
+	objectClass: organizationalRole
+	cn: ldapadm
+	description: LDAP Manager
+
+	dn: ou=People,dc=nti310,dc=local
+	objectClass: organizationalUnit
+	ou: People
+	dn: ou=Group,dc=nti310,dc=local
+	objectClass: organizationalUnit
+	ou: Group" > base.ldif
 	
 	ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif
 	
