@@ -76,7 +76,7 @@ yum install -y git
 	changetype: modify 
 	replace: olcTLSCertificateKeyFile
 	olcTLSCertificateKeyFile: /etc/openldap/certs/nti310ldapkey.pem" > certs.ldif
-	
+	#modify
 	ldapmodify -Y EXTERNAL  -H ldapi:/// -f certs.ldif
 	
 	slaptest -u
