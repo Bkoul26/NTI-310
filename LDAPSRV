@@ -104,7 +104,8 @@ objectClass: organizationalUnit
 ou: Group" > base.ldif
 
 setenforce 0
-	
+echo -n "$newsecret" > /root/ldap_admin_pass
+chmod 0600 /root/ldap_admin_pass
 ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f base.ldif -y /root/ldap_admin_pass
 systemctl restart httpd
 	
