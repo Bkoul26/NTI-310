@@ -13,7 +13,7 @@ systemctl start slapd
 yum install -y httpd phpldapadmin
 	
 #Lets SELinux know whats going on
-setsbool -P httpd_can_connect_ldap on
+setsebool -P httpd_can_connect_ldap on
 	
 systemctl enable httpd
 systemctl start httpd
@@ -35,6 +35,21 @@ systemctl restart httpd
 #newsecret=$(slappasswd -g)
 newsecret="password"
 newhash=$(slappasswd -s "$newsecret")
+echo -e "dn: olcDatabase={2}hdb,cn=config	
+changetype: modify	
+replace: olcSuffix	
+olcSuffix: dc=nti310,dc=local	
+\n	
+dn: olcDatabase={2}hdb,cn=config	
+changetype: modify	
+replace: olcRootDN	
+olcRootDN: cn=ldapadm,dc=nti310,dc=local	
+\n	
+dn: olcDatabase={2}hdb,cn=config	
+changetype: modify	
+replace: olcRootPW	
+olcRootPW: $newhash" > db.ldif
+#######
 echo -e "dn: dc=nti310,dc=local
 dc: nti310
 objectClass: top
@@ -103,7 +118,7 @@ ou: People
 dn: ou=Group,dc=nti310,dc=local
 dn: cn=ldapadm ,dc=nti310,dc=local                                #objectClass: organizationalUnit
 ou: Group" > base.ldif
-	
+
 setenforce 0
 	
 ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f base.ldif -y /root/ldap_admin_pass
