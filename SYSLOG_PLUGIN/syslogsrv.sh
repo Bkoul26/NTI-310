@@ -18,3 +18,4 @@ elif [systemctl status rsyslog | grep -c Failed = 1]; then
 else
     echo "STATUS: UNKNOWN"
     exit 3;
+#end
