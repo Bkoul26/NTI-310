@@ -37,3 +37,5 @@ systemctl restart nfs-server
 #insta;; net toold
 yum -y install net-tools
 echo "*.info;mail.none;authpriv.none;cron.none   @10.128.0.5" >> /etc/rsyslog.conf && systemctl restart rsyslog.service
+chmod 775 /etc/nagios/servers
+usermod -a -G root aliyaasken
