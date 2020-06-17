@@ -16,12 +16,12 @@ sed -i 's,host    all             all             ::1/128                 ident,
 
 
 echo "alter user postgres superuser;
-CREATE DATABASE nti310;
-CREATE USER nti310user WITH PASSWORD 'password';
-ALTER ROLE nti310user SET client_encoding TO 'utf8';
-ALTER ROLE nti310user SET default_transaction_isolation TO 'read committed';
-ALTER ROLE nti310user SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE nti310 TO nti310user;" > /tmp/tempfile
+CREATE DATABASE nti320;
+CREATE USER nti320user WITH PASSWORD 'password';
+ALTER ROLE nti320user SET client_encoding TO 'utf8';
+ALTER ROLE nti320user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE nti320user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE nti320 TO nti320user;" > /tmp/tempfile
 
 sudo -u postgres /bin/psql -f /tmp/tempfile
 
