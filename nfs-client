@@ -2,46 +2,9 @@
 # put this at the beginning of each of your scripts
 # it will remove the centos7 repos, which are flakey right now
 # and put in our (more stable) repositories.
-
-for file in $( ls /etc/yum.repos.d/ ); do mv /etc/yum.repos.d/$file /etc/yum.repos.d/$file.bak; done
-
-
-echo "[nti-310-epel]
-name=NTI310 EPEL
-baseurl=http://34.71.91.10/epel
-gpgcheck=0
-enabled=1" >> /etc/yum.repos.d/local-repo.repo
-
-echo "[nti-310-base]
-name=NTI310 BASE
-baseurl=http://34.71.91.10/base
-gpgcheck=0
-enabled=1" >> /etc/yum.repos.d/local-repo.repo
-
-echo "[nti-310-extras]
-name=NTI310 EXTRAS
-baseurl=http://34.71.91.10/extras/
-gpgcheck=0
-enabled=1" >> /etc/yum.repos.d/local-repo.repo
-
-echo "[nti-310-updates]
-name=NTI310 UPDATES
-baseurl=http://34.71.91.10/updates/
-gpgcheck=0
-enabled=1" >> /etc/yum.repos.d/local-repo.repo
-gcloud compute instances create nsf-server \
---image-family centos-7 \
---image-project centos-cloud \
---zone us-east1-b \
---tags "http-server","https-server" \
---machine-type f1-micro \
---scopes cloud-platform \
---metadata-from-file startup-script=/home/bloshakoul/NTI-310/nfs-server
---private-network-ip=10.128.0.5
-
 apt install -y nfs-client
-showmount -e 10.168.0.4
+showmount -e 10.128.0.16
 mkdir /mnt/test
-echo "10.128.0.5:/var/nfsshare/testing     /mnt/test     nfs     defaults 0 0" >> /etc/fstab
+echo "10.128.0.16:/var/nfsshare/testing     /mnt/test     nfs     defaults 0 0" >> /etc/fstab
 mount -a
 *profit*
