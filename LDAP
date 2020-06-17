@@ -4,7 +4,7 @@ yum install -y git openldap-servers openldap-clients httpd phpldapadmin
 #CD /tmp
 #cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
 
-#it clone https://github.com/Bkoul26/NTI320
+#it clone https://github.com/Bkoul26/NTI310
 #]# vim /var/lib/ldap/DB_CONFIG
 chown ldap./var/lib/DB_CONFIG
 systemctl enable slapd
@@ -20,32 +20,32 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
-echo -e "dn: dc=nti320, dc=local
+echo -e "dn: dc=nti310, dc=local
 dc: nti310
 objectClass: top
 objectClass: domain
 \n
-dn: cn=ldapadm, dc=nti320,dc=local
+dn: cn=ldapadm, dc=nti310,dc=local
 objectClass: organizationalRole
 cn: ldapadm
 description: LDAP Manager
 \n
-dn: ou=People, dc=nti320,dc=local
+dn: ou=People, dc=nti310,dc=local
 objectClass: organizationalUnit
 ou:people
 \n
-dn: ou=Group, dc=nti320,dc=local
+dn: ou=Group, dc=nti310,dc=local
 objectClass:organizationalUnit
 ou: Group" > base.ldif
 
 setenforce 0
-ldapadd -x -W -D "cn=ldapadm,dc=nti320,dc=local" -f base.ldif -y /root/ldap_admin_pass
+ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f base.ldif -y /root/ldap_admin_pass
 systemctl restart httpd
 ####
 ###PAGE 2 GENERATE CERTS
 ####
 openssl req -new -x509 -nodes -out /etc/openldap/certs/nti310ldapcert.pem -keyout /etc/openldap/certs/nti310ldapkey.pem -days 365 -subj
-"/C=US/ST=WA/L=Seattle/O=SCC/OU=IT/CN=nti320.local"
+"/C=US/ST=WA/L=Seattle/O=SCC/OU=IT/CN=nti310.local"
 chown -R ldap. /etc/openldap/certs/nti*.pem
 echo -e "dn: cn=config"
 changetype: modify
@@ -78,11 +78,11 @@ chmod 0600 /root/ldap_admin_pass
 echo -e "dn: olcDatabase= {2}hdb,cn=config
 changetype: modify
 replace: olcSuffix
-olcSuffix: dc=nti320,dc=local
+olcSuffix: dc=nti310,dc=local
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcRootDN
-olcRootDN: cn=ldapadm,dc=nti320,dc=local
+olcRootDN: cn=ldapadm,dc=nti310,dc=local
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcRootPW
