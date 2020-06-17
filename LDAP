@@ -50,7 +50,7 @@ chown -R ldap. /etc/openldap/certs/nti*.pem
 echo -e "dn: cn=config"
 changetype: modify
 replace: olcTLSCertificateKeyFile
-olcTLSCertificateKeyFile: /etc/openldap/certs/nti320ldapkey.pem" > certs.ldif
+olcTLSCertificateKeyFile: /etc/openldap/certs/nti310ldapkey.pem" > certs.ldif
 
 ldapmodify -Y EXTERNAL -H ldapi:/// -f certs.ldif
 #TEST
